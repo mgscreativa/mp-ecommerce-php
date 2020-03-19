@@ -5,7 +5,7 @@ require __DIR__  . '/utils.php';
 $req_dump = '==========  '.date('d-m-Y H:i:s P', time()).'  =========='."\r\n";
 $req_dump .= print_r($_REQUEST, TRUE);
 $req_dump .= '==================================='."\r\n";
-$fp = fopen(dirname(__FILE__).'/request.log', 'a');
+$fp = fopen(dirname(__FILE__).'/logs/request.log', 'a');
 fwrite($fp, $req_dump);
 fclose($fp);
 
@@ -19,7 +19,7 @@ if (array_key_exists("type", $_REQUEST) && array_key_exists("data_id", $_REQUEST
             $req_dump = '==========  '.date('d-m-Y H:i:s P', time()).'  =========='."\r\n";
             $req_dump .= print_r($payment, TRUE);
             $req_dump .= '==========   Fin   =========='."\r\n";
-            $fp = fopen(dirname(__FILE__).'/payment.log', 'a');
+            $fp = fopen(dirname(__FILE__).'/logs/payment.log', 'a');
             fwrite($fp, $req_dump);
             fclose($fp);
             break;
