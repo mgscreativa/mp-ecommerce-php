@@ -1,0 +1,64 @@
+.as-accordion-item.cart-header {
+  margin-top: 50px;
+  margin-bottom: 10px;
+}
+
+.as-search-accordion-title.cart-header {
+  width: 100%;
+  font-size: 16px;
+  text-align: center;
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.as-accordion-item.cart-header  .as-search-facet {
+  border-bottom: none;
+}
+
+.cart-header .as-accordion-header.as-search-accordion-header {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.as-accordion-header.as-search-accordion-header.checkout-button {
+  text-align: center;
+}
+
+.as-accordion-header.as-search-accordion-header.checkout-button .mercadopago-button {
+  padding: 0 1em;
+}
+
+.products .as-search-accordion-title {
+  width: 100%;
+}
+
+.products .as-accordion-title.price {
+  text-align: right;
+  display: inline-block;
+  width: 100%;
+}
+
+.products .removeProduct {
+  cursor: pointer;
+}
+
+.products .removeProduct:before {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 10px;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  content: "\f00d";
+  margin-right: 5px;
+}
+
+
+.mercadopago-button:disabled,
+.mercadopago-button[disabled]{
+  background-color: #cccccc;
+  color: #666666;
+}
+
+.as-producttile-tilelink:hover, .as-producttile-tilelink:focus, .as-producttile-tilelink:active {
+  color: #0070c9;
+  text-decoration: none;
+}
