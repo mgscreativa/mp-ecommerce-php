@@ -9,23 +9,29 @@ $fp = fopen(dirname(__FILE__).'/logs/request.log', 'a');
 fwrite($fp, $req_dump);
 fclose($fp);
 
-MercadoPago\SDK::setAccessToken('TEST-6317427424180639-090914-d7e31028329ff046e873fae82ed7b93c-469485398');
+$testAccessToken = 'TEST-3948326050459081-081708-870f29025b3f994640965ff78b564288__LA_LD__-225562264';
+$productionAccessToken = 'APP_USR-3948326050459081-081708-dedd16c590a2e9e8064b97ef284cdf46__LC_LD__-225562264';
 
-if (array_key_exists("type", $_REQUEST) && array_key_exists("data_id", $_REQUEST)) {
-    switch($_REQUEST["type"]) {
-        case "payment":
-            $paymentId = $_REQUEST["data_id"];
-            $payment = MercadoPago\Payment::find_by_id($paymentId);
-            $req_dump = '==========  '.date('d-m-Y H:i:s P', time()).'  =========='."\r\n";
-            $req_dump .= print_r($payment, TRUE);
-            $req_dump .= '==========   Fin   =========='."\r\n";
-            $fp = fopen(dirname(__FILE__).'/logs/payment.log', 'a');
-            fwrite($fp, $req_dump);
-            fclose($fp);
-            break;
-        default:
-            break;
+MercadoPago\SDK::setAccessToken($productionAccessToken);
+MercadoPago\SDK::setIntegratorId("dev_af7a97de769011ea97f30242ac130004");
+
+if (array_key_exists("type", $_REQUEST) && array_key_exists("data_id", $_REQUEST) || array_key_exists("topic", $_REQUEST) && array_key_exists("id", $_REQUEST)) {
+    $paymentId = array_key_exists("data_id", $_REQUEST) ? $_REQUEST["data_id"] : $_REQUEST["id"];
+
+    try {
+        $result = MercadoPago\Payment::find_by_id($paymentId);
+    } catch (Exception $e) {
+        $result = 'Error: ' . $e->getCode() . ' Message: ' . $e->getMessage();
     }
+
+    $iid = !empty($result->integrator_id) ? $result->integrator_id : 'null';
+    $req_dump  = '==========  '.date('d-m-Y H:i:s P', time()).'  =========='."\r\n";
+    $req_dump .= print_r($result, TRUE);
+    $req_dump .= 'integrator_id: '.$iid."\r\n";
+    $req_dump .= '==========   Fin   =========='."\r\n";
+    $fp = fopen(dirname(__FILE__).'/logs/payment.log', 'a');
+    fwrite($fp, $req_dump);
+    fclose($fp);
 } else if (array_key_exists("payment_id", $_REQUEST) && !array_key_exists("data_id", $_REQUEST)) { ?>
 
     <!DOCTYPE html>
